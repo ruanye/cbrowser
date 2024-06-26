@@ -74,7 +74,7 @@
             var formattedContent = '';
             for (var i = 0; i < lines.length; i++) {
                 var line = lines[i];
-                var formattedLine =(i + 1) + `. <span data-id=check${i+1} class="doc-mark">${line.slice(2)}</span>\n`;
+                var formattedLine =(i + 1) + `. <span data-id="check${i+1}" class="doc-mark">${line.slice(2)}</span>\n`;
                 formattedContent += formattedLine + '';
             }
             return formattedContent;
