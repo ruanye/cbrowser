@@ -11,18 +11,19 @@
             display: flex;
             justify-content: space-around;
             margin: 20px;
+            flex-direction: column;
         }
 
-        .container {
+        .container, .container2{
             display: flex;
             width: 100%;
             gap: 20px;
-            margin-top: 50px;
+            
         }
 
         textarea {
             width: 45%;
-            height: 300px;
+            height: 200px;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -31,14 +32,14 @@
             /* Ensure text preserves whitespace and line breaks */
         }
 
-        .output-container {
+        .output-container,  .output-container2{
             width: 45%;
             position: relative;
         }
 
-        .output {
+        .output,.output2 {
             width: 100%;
-            height: 300px;
+            height: 200px;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
@@ -52,7 +53,7 @@
 
         }
 
-        .copy-button {
+        .copy-button,.copy-button2 {
             position: absolute;
             top: -32px;
             right: -21px;
@@ -69,8 +70,8 @@
         }
     </style>
 </head>
-
 <body>
+    <h2>格式化 1 ，格式化带 1.xxx  2.xxx 的格式 </h2>
     <div class="container">
         <textarea id="inputContent" placeholder="输入格式：
 1. xxx 
@@ -78,6 +79,18 @@
         <div class="output-container">
             <button class="copy-button" onclick="copyToClipboard()">复制</button>
             <div id="content" class="output"></div>
+        </div>
+    </div>
+
+    <h2>格式化 2 ，格式化完整语句 </h2>
+
+    <div class="container2">
+        <textarea id="inputContent2" placeholder="输入格式：
+第一行 
+第二行"></textarea>
+        <div class="output-container2">
+            <button class="copy-button2" onclick="copyToClipboard()">复制</button>
+            <div id="content2" class="output2"></div>
         </div>
     </div>
 
@@ -101,6 +114,34 @@
 
         function copyToClipboard() {
             var content = document.getElementById('content').innerText;
+            var tempInput = document.createElement('textarea');
+            tempInput.value = content;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('复制成功！');
+        }
+
+        function addFormatToContent2(content) {
+            var lines = content.split('\n');
+            var formattedContent = '';
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                var formattedLine = (i + 1) + `. <span data-id="check${i + 1}" class="doc-mark">${line}</span>\n`;
+                formattedContent += formattedLine + '';
+            }
+            return formattedContent;
+        }
+
+        document.getElementById('inputContent2').addEventListener('input', function () {
+            var originalContent = this.value;
+            var formattedContent = addFormatToContent2(originalContent);
+            document.getElementById('content2').innerText = formattedContent;
+        });
+
+        function copyToClipboard() {
+            var content = document.getElementById('content2').innerText;
             var tempInput = document.createElement('textarea');
             tempInput.value = content;
             document.body.appendChild(tempInput);
