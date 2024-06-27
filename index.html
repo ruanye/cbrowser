@@ -89,7 +89,7 @@
 第一行 
 第二行"></textarea>
         <div class="output-container2">
-            <button class="copy-button2" onclick="copyToClipboard()">复制</button>
+            <button class="copy-button2" onclick="copyToClipboard2()">复制</button>
             <div id="content2" class="output2"></div>
         </div>
     </div>
@@ -140,7 +140,7 @@
             document.getElementById('content2').innerText = formattedContent;
         });
 
-        function copyToClipboard() {
+        function copyToClipboard2() {
             var content = document.getElementById('content2').innerText;
             var tempInput = document.createElement('textarea');
             tempInput.value = content;
